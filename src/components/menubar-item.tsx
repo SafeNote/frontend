@@ -8,8 +8,9 @@ export const MenuBarItem: FC<
         disabled?: boolean;
         onClick: () => void;
         isActive?: boolean;
+        isDanger?: boolean;
     }>
-> = ({ label, disabled, onClick, isActive, children }) => {
+> = ({ label, disabled, onClick, isActive, children, isDanger }) => {
     if (!label) {
         return (
             <button
@@ -20,9 +21,12 @@ export const MenuBarItem: FC<
                     'rounded px-1.5 py-1',
                     'disabled:cursor-not-allowed disabled:bg-gray-300 disabled:bg-opacity-80 disabled:text-gray-600',
                     isActive &&
+                        !isDanger &&
                         'bg-brand text-white focus-visible:ring-brand/75',
                     !isActive &&
-                        'bg-gray-300 text-gray-600 focus-visible:ring-gray-300/75'
+                        'bg-gray-300 text-gray-600 focus-visible:ring-gray-300/75',
+                    isDanger &&
+                        'bg-red-600 text-white focus-visible:ring-red-600/75'
                 )}>
                 <span className='sr-only'>{label}</span>
                 {children}
@@ -39,9 +43,12 @@ export const MenuBarItem: FC<
                 className={clsx(
                     'rounded px-1.5 py-1',
                     isActive &&
+                        !isDanger &&
                         'bg-brand text-white focus-visible:ring-brand/75',
                     !isActive &&
-                        'bg-gray-300 text-gray-600 focus-visible:ring-gray-300/75'
+                        'bg-gray-300 text-gray-600 focus-visible:ring-gray-300/75',
+                    isDanger &&
+                        'bg-red-600 text-white focus-visible:ring-red-600/75'
                 )}>
                 <span className='sr-only'>{label}</span>
                 {children}
