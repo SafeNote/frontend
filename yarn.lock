@@ -1405,6 +1405,46 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tiptap/extension-table-cell@npm:^2.0.0-beta.209":
+  version: 2.0.0-beta.209
+  resolution: "@tiptap/extension-table-cell@npm:2.0.0-beta.209"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.193
+  checksum: 33fd25df8e1de0eecd7f1fcb9699c13d0b20c42e8a780e4bd56acc6a0e5e4b3b7f45197c7121ecf8ef9611b48b0e5108d77b1cec74532d12f30095f5920f1b65
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-table-header@npm:^2.0.0-beta.209":
+  version: 2.0.0-beta.209
+  resolution: "@tiptap/extension-table-header@npm:2.0.0-beta.209"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.193
+  checksum: 74196e5988a1fe09a38b72fa6c448a72955d7b390d1044c76a61b96a3236b4a6048f4828b5f167359acfe6ab8f4c0dade557e50a47c8191b461c1a96d4e60a3a
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-table-row@npm:^2.0.0-beta.209":
+  version: 2.0.0-beta.209
+  resolution: "@tiptap/extension-table-row@npm:2.0.0-beta.209"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.193
+  checksum: 94a0ae3d1f09557f6496def0262eeb435d1ef7159f627b9747d4ce0c14549bc18a3a2487372788bb0e98fd23d4451030ca70510d4f79122a45e68b59dae4473e
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-table@npm:^2.0.0-beta.209":
+  version: 2.0.0-beta.209
+  resolution: "@tiptap/extension-table@npm:2.0.0-beta.209"
+  peerDependencies:
+    "@tiptap/core": ^2.0.0-beta.193
+    "@tiptap/prosemirror-tables": ^1.1.3
+    prosemirror-model: ^1.18.1
+    prosemirror-state: ^1.4.1
+    prosemirror-view: ^1.28.2
+  checksum: f262bf3d38a5e68d2c3617827058fb136f7eba0429b8f1554d015abedfa1ff38e418af8c741fd67b4efcbb9b8df73d1ac50f9cffde09ffc11c78dfa1752ebbcd
+  languageName: node
+  linkType: hard
+
 "@tiptap/extension-task-item@npm:^2.0.0-beta.209":
   version: 2.0.0-beta.209
   resolution: "@tiptap/extension-task-item@npm:2.0.0-beta.209"
@@ -1478,6 +1518,19 @@ __metadata:
     "@tiptap/core": ^2.0.0-beta.204
     prosemirror-model: ^1.18.1
   checksum: b6cf00273ec7db26797cb82469c8dcf8c22ae8b20ae385a715dbd258beaac25124a2d278c03a0d657a28005a758edfde58baf70d7e65392c522836dd129c1c5e
+  languageName: node
+  linkType: hard
+
+"@tiptap/prosemirror-tables@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "@tiptap/prosemirror-tables@npm:1.1.4"
+  peerDependencies:
+    prosemirror-keymap: ^1.1.2
+    prosemirror-model: ^1.8.1
+    prosemirror-state: ^1.3.1
+    prosemirror-transform: ^1.2.1
+    prosemirror-view: ^1.13.3
+  checksum: 6ecfe5262c3a2715166e2c8211a76e1d64f6f29ef1e9de20d55d579bc33400fad2e8688c02c066048a6768cf9248986e9d952ec23fde38904319059c496c811d
   languageName: node
   linkType: hard
 
@@ -6712,6 +6765,10 @@ __metadata:
     "@tiptap/extension-image": ^2.0.0-beta.209
     "@tiptap/extension-link": ^2.0.0-beta.209
     "@tiptap/extension-placeholder": ^2.0.0-beta.209
+    "@tiptap/extension-table": ^2.0.0-beta.209
+    "@tiptap/extension-table-cell": ^2.0.0-beta.209
+    "@tiptap/extension-table-header": ^2.0.0-beta.209
+    "@tiptap/extension-table-row": ^2.0.0-beta.209
     "@tiptap/extension-task-item": ^2.0.0-beta.209
     "@tiptap/extension-task-list": ^2.0.0-beta.209
     "@tiptap/extension-text-style": ^2.0.0-beta.209
@@ -6719,6 +6776,7 @@ __metadata:
     "@tiptap/extension-underline": ^2.0.0-beta.209
     "@tiptap/extension-youtube": ^2.0.0-beta.209
     "@tiptap/html": ^2.0.0-beta.209
+    "@tiptap/prosemirror-tables": ^1.1.4
     "@tiptap/react": ^2.0.0-beta.209
     "@tiptap/starter-kit": ^2.0.0-beta.209
     "@types/libsodium-wrappers": ^0.7.10

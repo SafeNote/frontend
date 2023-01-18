@@ -23,7 +23,10 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
                     <header className='flex h-12 items-center justify-between'>
                         <div>
                             <h1 className='text-xl font-bold'>
-                                <span className='text-brand'>Safe</span>Note
+                                <Link href='/'>
+                                    <span className='text-brand'>Safe</span>
+                                    Note
+                                </Link>
                             </h1>
                             <div className='text-sm'>
                                 Opensource, end to end encrypted notes.
@@ -45,12 +48,12 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
                         </div>
                     </header>
                     <main>{children}</main>
-                    <footer className='flex h-8 items-center justify-center text-center text-sm'>
-                        &copy;{' '}
+                    <footer className='flex h-8 items-center justify-center gap-1 text-center text-sm'>
+                        <span>&copy;</span>
                         <span>
                             <span className='text-brand'>Safe</span>Note
-                        </span>{' '}
-                        - 2023
+                        </span>
+                        <span>- 2023</span>
                     </footer>
                 </div>
             </Providers>

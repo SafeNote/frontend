@@ -4,6 +4,7 @@ import { useAlertStore } from '@/components/alert';
 import { CryptoService } from '@/services/crypto.worker';
 import { wrap } from 'comlink';
 import { Loader2 } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 
@@ -45,12 +46,43 @@ const Page = () => {
             {loading ? (
                 <Loader2 className='animate-spin text-brand' />
             ) : (
-                <button
-                    type='button'
-                    className='button button-primary'
-                    onClick={newNote}>
-                    New Note
-                </button>
+                <div className='prose prose-base'>
+                    <blockquote className='space-y-4'>
+                        <div className='font-bold'>
+                            Hey ChatGPT, introduce SafeNote to the world!
+                        </div>
+                        <div>
+                            SafeNote is a free and{' '}
+                            <Link
+                                href='https://github.com/SafeNote'
+                                target='_blank'
+                                rel='noreferrer'
+                                className='text-brand'>
+                                open-source
+                            </Link>{' '}
+                            online notepad that offers end-to-end encryption to
+                            ensure the security and privacy of your notes. With
+                            SafeNote, you can take notes for various purposes
+                            such as work, school, or personal use without any
+                            worries about the security of your data. It does not
+                            require an account, so you can start using it right
+                            away. The encryption used in SafeNote is the
+                            strongest available which provides a great peace of
+                            mind knowing that your notes are protected from
+                            prying eyes. You can store, edit, and share your
+                            notes with complete confidence. It&apos;s a great
+                            tool for anyone looking for a secure and reliable
+                            online notepad.
+                        </div>
+                        <div>- ChatGPT</div>
+                    </blockquote>
+                    <button
+                        type='button'
+                        className='button button-primary'
+                        onClick={newNote}>
+                        Create A Note
+                    </button>
+                </div>
             )}
         </div>
     );
