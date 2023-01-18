@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --tw-ring-color: theme('colors.brand.DEFAULT');
+    }
+
+    *::selection {
+        background-color: theme('colors.brand.DEFAULT');
+        color: theme('colors.white');
+    }
+
+    html {
+        -webkit-tap-highlight-color: transparent;
+        height: 100%;
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        @apply [font-feature-settings:'ss01'];
+        @apply font-sans;
+    }
+
+    body {
+        min-height: 100%;
+        flex-direction: column;
+        color: theme('colors.gray.900');
+        background-color: theme('colors.gray.100');
+    }
+
+    [type='text'],
+    [type='email'],
+    [type='url'],
+    [type='password'],
+    [type='number'],
+    [type='date'],
+    [type='datetime-local'],
+    [type='month'],
+    [type='search'],
+    [type='tel'],
+    [type='time'],
+    [type='week'],
+    [multiple],
+    textarea,
+    select {
+        width: 100%;
+        border-radius: theme('borderRadius.md');
+        border-color: theme('colors.slate.400');
+        box-shadow: theme('boxShadow.sm');
+        @apply focus:border-brand focus:ring-brand/75;
+    }
+
+    [type='checkbox'],
+    [type='radio'] {
+        color: theme('colors.brand.DEFAULT');
+        border-color: theme('colors.gray.500');
+        border-radius: theme('borderRadius.DEFAULT');
+        @apply focus:ring-brand;
+    }
+
+    button, a[type='button'] {
+        @apply focus:outline-none;
+        @apply focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-brand/75;
+    }
+
+    .button {
+        @apply flex cursor-pointer items-center justify-center gap-2 rounded-md px-2 py-1 font-medium;
+        @apply disabled:cursor-not-allowed disabled:bg-opacity-80;
+    }
+
+    .button-primary {
+        @apply bg-brand-600 text-white focus-visible:ring-brand/75;
+    }
+
+    .button-secondary {
+        @apply bg-gray-600 text-white focus-visible:ring-gray-600/75;
+    }
+}

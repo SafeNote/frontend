@@ -1,0 +1,46 @@
+.ProseMirror p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
+ul[data-type="taskList"] {
+    padding: 0;
+    margin: 0;
+}
+
+ul[data-type="taskList"] p {
+    margin: 0;
+}
+
+ul[data-type="taskList"] li {
+    display: flex;
+    margin: 0;
+}
+
+ul[data-type="taskList"] li > label {
+    flex: 0 0 auto;
+    margin: 0;
+    margin-right: 0.5rem;
+    user-select: none;
+}
+
+ul[data-type="taskList"] li > div {
+    flex: 1 1 auto;
+    margin: 0;
+}
+
+.ProseMirror img {
+    height: auto;
+    max-width: 100%;
+}
+
+.ProseMirror img.ProseMirror-selectednode {
+    @apply ring-2 ring-offset-1 ring-brand/75;
+}
+
+.ProseMirror a {
+    color: theme('colors.brand.DEFAULT')
+}
