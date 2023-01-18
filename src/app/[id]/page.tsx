@@ -20,6 +20,11 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
     const [noteData, setNoteData] = useState<string | null>(null);
 
     useEffect(() => {
+        const key = window.location.hash.slice(1);
+        if (!key) {
+            return () => {};
+        }
+
         const controller = new AbortController();
         const createOrGet = async () => {
             try {
@@ -34,10 +39,6 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
 
                 const crypto = wrap<typeof CryptoService>(worker);
 
-                const key = window.location.hash.slice(1);
-                if (!key) {
-                    return;
-                }
                 const hash = await crypto.getHash(key);
                 const result = await createOrGetNote(
                     id,
@@ -102,6 +103,12 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
 
     const onSave = useCallback(
         async (data: string) => {
+            const key = window.location.hash.slice(1);
+            if (!key) {
+                push('/');
+                return;
+            }
+
             try {
                 setSaving(true);
                 const worker = new Worker(
@@ -114,11 +121,6 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
 
                 const crypto = wrap<typeof CryptoService>(worker);
 
-                const key = window.location.hash.slice(1);
-                if (!key) {
-                    push('/');
-                    return;
-                }
                 const hash = await crypto.getHash(key);
                 const { encryptedData, nonce } = await crypto.encrypt(
                     key,
