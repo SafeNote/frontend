@@ -198,6 +198,7 @@ export const MenuBar = ({
                 <MenuBarItem
                     label='Share'
                     onClick={async () => {
+                        await onSave(JSON.stringify(editor.getJSON()));
                         await navigator.clipboard.writeText(
                             window.location.href
                         );
