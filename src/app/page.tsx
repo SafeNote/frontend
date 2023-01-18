@@ -26,7 +26,9 @@ const Page = () => {
             const crypto = wrap<typeof CryptoService>(worker);
 
             const { id, key } = await crypto.generateIdAndKey();
-            push(`/${id}#${key}`);
+            push(`/${id}#${key}`, {
+                forceOptimisticNavigation: true,
+            });
             setLoading(true);
         } catch (error) {
             if (typeof error === 'string') {
