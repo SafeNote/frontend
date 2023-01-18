@@ -18,7 +18,7 @@ export const Tooltip: FC<
             <Portal>
                 <Content
                     className={clsx(
-                        'select-none rounded py-2 px-3 text-sm leading-4 shadow-lg duration-500',
+                        'z-50 select-none rounded py-2 px-3 text-sm leading-4 shadow-lg duration-500',
                         {
                             'bg-gray-900 text-white': dark,
                             'bg-white text-gray-900': !dark,

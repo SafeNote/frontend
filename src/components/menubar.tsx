@@ -250,17 +250,6 @@ export const MenuBar = ({
                         <Share2 size={20} />
                     </div>
                 </MenuBarItem>
-                <MenuBarItem
-                    onClick={async () => {
-                        addAlert('Note deleted!', 'success');
-                    }}
-                    isActive
-                    isDanger>
-                    <div className='flex items-center gap-1'>
-                        <span className='hidden md:inline-block'>Delete</span>
-                        <Trash size={20} />
-                    </div>
-                </MenuBarItem>
             </div>
         </div>
     </>
