@@ -111,7 +111,7 @@ export const NotesEditor = ({
         <div className='h-full space-y-4'>
             {editor ? (
                 <div className='flex h-full flex-col justify-center gap-4'>
-                    <div className='shrink-0'>
+                    <div className='shrink-0 space-y-2'>
                         <MenuBar
                             saving={saving}
                             onSave={onSave}
