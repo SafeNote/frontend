@@ -43,7 +43,7 @@ const Page = () => {
 
     if (loading) {
         return (
-            <div className='flex h-[75vh] max-h-[75vh] items-center justify-center'>
+            <div className='flex h-full items-center justify-center'>
                 <Loader2 className='animate-spin text-brand' />
             </div>
         );

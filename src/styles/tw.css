@@ -13,8 +13,9 @@
     }
 
     html {
-        -webkit-tap-highlight-color: transparent;
         height: 100%;
+
+        -webkit-tap-highlight-color: transparent;
         scroll-behavior: smooth;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -23,8 +24,7 @@
     }
 
     body {
-        min-height: 100%;
-        flex-direction: column;
+        height: 100%;
         color: theme('colors.gray.900');
         background-color: theme('colors.gray.100');
     }

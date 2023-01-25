@@ -94,7 +94,7 @@ export const NotesEditor = ({
             attributes: {
                 class: clsx(
                     'prose max-w-full p-4',
-                    'h-[75vh] max-h-[75vh] overflow-y-auto rounded-md border-2 border-brand',
+                    'h-full overflow-y-auto rounded-md border-2 border-brand',
                     'focus:outline-none focus-within:ring-2 focus-within:ring-brand/75 focus-within:ring-offset-2',
                     '[&>*]:m-0'
                 ),
@@ -110,17 +110,17 @@ export const NotesEditor = ({
     return (
         <div className='relative h-full space-y-4'>
             {editor ? (
-                <>
+                <div className='flex h-full flex-col justify-center gap-4'>
                     <MenuBar saving={saving} onSave={onSave} editor={editor} />
-                    <EditorContent className='h-full' editor={editor} />
+                    <EditorContent className='h-full flex-1' editor={editor} />
                     <div className='absolute bottom-4 right-4 text-right'>
                         {editor?.storage.characterCount.characters()} characters
                         <br />
                         {editor?.storage.characterCount.words()} words
                     </div>
-                </>
+                </div>
             ) : (
-                <div className='flex h-[75vh] max-h-[75vh] items-center justify-center overflow-y-auto'>
+                <div className='flex h-full items-center justify-center overflow-y-auto'>
                     <Loader2 className='animate-spin text-brand' />
                 </div>
             )}
