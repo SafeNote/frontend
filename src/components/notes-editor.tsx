@@ -29,7 +29,6 @@ import clsx from 'clsx';
 import { lowlight } from 'lowlight';
 import { Loader2 } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
-import { useAlertStore } from './alert';
 
 export const NotesEditor = ({
     noteData,
@@ -38,7 +37,10 @@ export const NotesEditor = ({
 }: {
     noteData: string | null;
     saving: boolean;
-    onSave: (daat: string) => void;
+    onSave: (
+        data: string,
+        successMessage?: string | undefined
+    ) => Promise<void>;
 }) => {
     const extensions: Extensions = useMemo(
         () => [
@@ -105,18 +107,11 @@ export const NotesEditor = ({
         editor?.commands.setContent(content);
     }, [editor, content]);
 
-    const addAlert = useAlertStore(state => state.addAlert);
-
     return (
         <div className='relative h-full space-y-4'>
             {editor ? (
                 <>
-                    <MenuBar
-                        saving={saving}
-                        onSave={onSave}
-                        addAlert={addAlert}
-                        editor={editor}
-                    />
+                    <MenuBar saving={saving} onSave={onSave} editor={editor} />
                     <EditorContent className='h-full' editor={editor} />
                     <div className='absolute bottom-4 right-4 text-right'>
                         {editor?.storage.characterCount.characters()} characters
