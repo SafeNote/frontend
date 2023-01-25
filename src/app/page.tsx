@@ -51,8 +51,8 @@ const Page = () => {
 
     return (
         <div className='flex h-full items-center justify-center'>
-            <div className='prose prose-base'>
-                <blockquote className='space-y-4'>
+            <div className='prose prose-base text-sm'>
+                <blockquote className='space-y-2 md:space-y-4'>
                     <div className='font-bold'>
                         Hey ChatGPT, introduce SafeNote to the world!
                     </div>
