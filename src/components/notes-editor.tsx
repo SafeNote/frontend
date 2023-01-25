@@ -94,7 +94,7 @@ export const NotesEditor = ({
             attributes: {
                 class: clsx(
                     'prose max-w-full p-4',
-                    'h-full overflow-y-auto rounded-md border-2 border-brand',
+                    'h-[65vh] max-h-[65vh] overflow-y-auto rounded-md border-2 border-brand',
                     'focus:outline-none focus-within:ring-2 focus-within:ring-brand/75 focus-within:ring-offset-2',
                     '[&>*]:m-0'
                 ),
@@ -108,15 +108,29 @@ export const NotesEditor = ({
     }, [editor, content]);
 
     return (
-        <div className='relative h-full space-y-4'>
+        <div className='h-full space-y-4'>
             {editor ? (
                 <div className='flex h-full flex-col justify-center gap-4'>
-                    <MenuBar saving={saving} onSave={onSave} editor={editor} />
-                    <EditorContent className='h-full flex-1' editor={editor} />
-                    <div className='absolute bottom-4 right-4 text-right'>
-                        {editor?.storage.characterCount.characters()} characters
-                        <br />
-                        {editor?.storage.characterCount.words()} words
+                    <div className='shrink-0'>
+                        <MenuBar
+                            saving={saving}
+                            onSave={onSave}
+                            editor={editor}
+                        />
+                    </div>
+                    <EditorContent
+                        className='h-full flex-auto'
+                        editor={editor}
+                    />
+                    <div className='shrink-0 space-x-2 text-right'>
+                        <span>
+                            {editor?.storage.characterCount.characters()}{' '}
+                            characters
+                        </span>
+                        <span>|</span>
+                        <span>
+                            {editor?.storage.characterCount.words()} words
+                        </span>
                     </div>
                 </div>
             ) : (
