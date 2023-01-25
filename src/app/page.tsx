@@ -1,7 +1,6 @@
 'use client';
 
 import { useAlertStore } from '@/components/alert';
-import { useLinkStore } from '@/hooks/use-link-store';
 import { CryptoService } from '@/services/crypto.worker';
 import { wrap } from 'comlink';
 import { Loader2 } from 'lucide-react';
@@ -13,7 +12,6 @@ const Page = () => {
     const [loading, setLoading] = useState(false);
     const { push } = useRouter();
     const addAlert = useAlertStore(state => state.addAlert);
-    const links = useLinkStore(state => state.links);
 
     const newNote = useCallback(async () => {
         try {
@@ -51,76 +49,44 @@ const Page = () => {
         );
     }
 
-    if (links.length <= 0) {
-        return (
-            <div className='flex h-[75vh] max-h-[75vh] items-center justify-center'>
-                <div className='prose prose-base'>
-                    <blockquote className='space-y-4'>
-                        <div className='font-bold'>
-                            Hey ChatGPT, introduce SafeNote to the world!
-                        </div>
-                        <div>
-                            SafeNote is a free and{' '}
-                            <Link
-                                href='https://github.com/SafeNote'
-                                target='_blank'
-                                rel='noreferrer'
-                                className='text-brand'>
-                                open-source
-                            </Link>{' '}
-                            online notepad that offers end-to-end encryption to
-                            ensure the security and privacy of your notes. With
-                            SafeNote, you can take notes for various purposes
-                            such as work, school, or personal use without any
-                            worries about the security of your data. It does not
-                            require an account, so you can start using it right
-                            away. The encryption used in SafeNote is the
-                            strongest available which provides a great peace of
-                            mind knowing that your notes are protected from
-                            prying eyes. You can store, edit, and share your
-                            notes with complete confidence. It&apos;s a great
-                            tool for anyone looking for a secure and reliable
-                            online notepad.
-                        </div>
-                        <div>- ChatGPT</div>
-                    </blockquote>
-                    <button
-                        type='button'
-                        className='button button-primary'
-                        onClick={newNote}>
-                        Create A Note
-                    </button>
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className='flex h-[75vh] max-h-[75vh] items-center justify-center'>
-            <ul className='grid w-full gap-4 lg:grid-cols-3'>
-                {links.map(link => (
-                    <li key={link.id} className='flex w-full'>
+            <div className='prose prose-base'>
+                <blockquote className='space-y-4'>
+                    <div className='font-bold'>
+                        Hey ChatGPT, introduce SafeNote to the world!
+                    </div>
+                    <div>
+                        SafeNote is a free and{' '}
                         <Link
-                            href={link.key}
-                            className='flex h-full w-full flex-col justify-center gap-2 rounded-md bg-white px-4 py-2 text-sm shadow transition-all hover:shadow-lg'>
-                            <div className='flex gap-1'>
-                                <span className='font-bold'>Title:</span>
-                                <span>{link.title}</span>
-                            </div>
-                            <div className='flex gap-1'>
-                                <span className='font-bold'>Date Created:</span>
-                                <span>{link.createdAt}</span>
-                            </div>
-                            <div className='flex gap-1'>
-                                <span className='font-bold'>
-                                    Date Modified:
-                                </span>
-                                <span>{link.modifiedAt}</span>
-                            </div>
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+                            href='https://github.com/SafeNote'
+                            target='_blank'
+                            rel='noreferrer'
+                            className='text-brand'>
+                            open-source
+                        </Link>{' '}
+                        online notepad that offers end-to-end encryption to
+                        ensure the security and privacy of your notes. With
+                        SafeNote, you can take notes for various purposes such
+                        as work, school, or personal use without any worries
+                        about the security of your data. It does not require an
+                        account, so you can start using it right away. The
+                        encryption used in SafeNote is the strongest available
+                        which provides a great peace of mind knowing that your
+                        notes are protected from prying eyes. You can store,
+                        edit, and share your notes with complete confidence.
+                        It&apos;s a great tool for anyone looking for a secure
+                        and reliable online notepad.
+                    </div>
+                    <div>- ChatGPT</div>
+                </blockquote>
+                <button
+                    type='button'
+                    className='button button-primary'
+                    onClick={newNote}>
+                    Create A Note
+                </button>
+            </div>
         </div>
     );
 };
