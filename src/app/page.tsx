@@ -66,15 +66,11 @@ const Page = () => {
                             open-source
                         </Link>{' '}
                         online notepad that offers end-to-end encryption to
-                        ensure the security and privacy of your notes. With
-                        SafeNote, you can take notes for various purposes such
-                        as work, school, or personal use without any worries
-                        about the security of your data. It does not require an
-                        account, so you can start using it right away. The
-                        encryption used in SafeNote is the strongest available
-                        which provides a great peace of mind knowing that your
-                        notes are protected from prying eyes. You can store,
-                        edit, and share your notes with complete confidence.
+                        ensure the security and privacy of your notes. It does
+                        not require an account, so you can start using it right
+                        away. The encryption used in SafeNote is the strongest
+                        available which provides a great peace of mind knowing
+                        that your notes are protected from prying eyes.
                         It&apos;s a great tool for anyone looking for a secure
                         and reliable online notepad.
                     </div>

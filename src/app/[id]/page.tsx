@@ -159,20 +159,12 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
         [addAlert, id, push]
     );
 
-    return (
-        <div className='h-full'>
-            {loading ? (
-                <div className='flex h-[75vh] max-h-[75vh] items-center justify-center'>
-                    <Loader2 className='animate-spin text-brand' />
-                </div>
-            ) : (
-                <NotesEditor
-                    saving={saving}
-                    onSave={onSave}
-                    noteData={noteData}
-                />
-            )}
+    return loading ? (
+        <div className='flex h-[75vh] max-h-[75vh] items-center justify-center'>
+            <Loader2 className='animate-spin text-brand' />
         </div>
+    ) : (
+        <NotesEditor saving={saving} onSave={onSave} noteData={noteData} />
     );
 };
 

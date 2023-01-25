@@ -19,7 +19,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
                 'debug-screens': process.env.NODE_ENV === 'development',
             })}>
             <Providers>
-                <div className='container mx-auto h-full space-y-8 p-4'>
+                <div className='container mx-auto h-screen space-y-8 p-4'>
                     <header className='flex h-12 items-center justify-between'>
                         <div>
                             <h1 className='text-xl font-bold'>
