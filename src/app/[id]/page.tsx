@@ -159,7 +159,7 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
         [addAlert, id, push]
     );
 
-    return !loading ? (
+    return loading ? (
         <div className='flex h-full items-center justify-center'>
             <Loader2 className='animate-spin text-brand' />
         </div>
