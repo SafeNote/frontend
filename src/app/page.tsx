@@ -50,7 +50,7 @@ const Page = () => {
     }
 
     return (
-        <div className='flex h-[75vh] max-h-[75vh] items-center justify-center overflow-y-auto'>
+        <div className='flex h-full items-center justify-center'>
             <div className='prose prose-base'>
                 <blockquote className='space-y-4'>
                     <div className='font-bold'>
