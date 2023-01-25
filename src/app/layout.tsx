@@ -15,9 +15,9 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
     <html lang='en' dir='ltr' className={clsx(inter.variable)}>
         <head />
         <body
-            className={clsx(
-                process.env.NODE_ENV === 'development' && 'debug-screens'
-            )}>
+            className={clsx({
+                'debug-screens': process.env.NODE_ENV === 'development',
+            })}>
             <Providers>
                 <div className='container mx-auto h-full space-y-8 p-4'>
                     <header className='flex h-12 items-center justify-between'>

@@ -6,28 +6,28 @@
     pointer-events: none;
 }
 
-ul[data-type="taskList"] {
+.ProseMirror ul[data-type="taskList"] {
     padding: 0;
     margin: 0;
 }
 
-ul[data-type="taskList"] p {
+.ProseMirror ul[data-type="taskList"] p {
     margin: 0;
 }
 
-ul[data-type="taskList"] li {
+.ProseMirror ul[data-type="taskList"] li {
     display: flex;
     margin: 0;
 }
 
-ul[data-type="taskList"] li > label {
+.ProseMirror ul[data-type="taskList"] li > label {
     flex: 0 0 auto;
     margin: 0;
     margin-right: 0.5rem;
     user-select: none;
 }
 
-ul[data-type="taskList"] li > div {
+.ProseMirror ul[data-type="taskList"] li > div {
     flex: 1 1 auto;
     margin: 0;
 }
@@ -93,11 +93,11 @@ ul[data-type="taskList"] li > div {
     pointer-events: none;
 }
 
-.tableWrapper {
+.ProseMirror .tableWrapper {
     overflow-x: auto;
 }
 
-.resize-cursor {
+.ProseMirror .resize-cursor {
     cursor: ew-resize;
     cursor: col-resize;
 }

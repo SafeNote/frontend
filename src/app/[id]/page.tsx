@@ -102,7 +102,7 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
     const [saving, setSaving] = useState(false);
 
     const onSave = useCallback(
-        async (data: string) => {
+        async (data: string, successMessage?: string) => {
             const key = window.location.hash.slice(1);
             if (!key) {
                 push('/');
@@ -133,7 +133,7 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
                 });
 
                 if (result.success) {
-                    addAlert('Note saved!', 'success');
+                    addAlert(successMessage ?? 'Note saved!', 'success');
                     return;
                 }
 

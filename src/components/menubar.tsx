@@ -1,4 +1,3 @@
-import { AlertType } from '@/components/alert';
 import { Highlight } from '@/components/highlight';
 import { MenuBarItem } from '@/components/menubar-item';
 import { NodeListBox } from '@/components/node-list-box';
@@ -19,7 +18,6 @@ import {
     Save,
     Share2,
     Strikethrough,
-    Trash,
     Underline as UnderlineIcon,
     Undo,
     X,
@@ -27,18 +25,12 @@ import {
 
 export const MenuBar = ({
     editor,
-    addAlert,
     saving,
     onSave,
 }: {
     editor: Editor;
-    addAlert: (
-        message: string,
-        type?: AlertType | undefined,
-        dismissInMs?: number | undefined
-    ) => void;
     saving: boolean;
-    onSave: (data: string) => void;
+    onSave: (data: string, successMessage?: string) => Promise<void>;
 }) => (
     <>
         <div className='flex flex-wrap items-center justify-center gap-4 md:justify-start md:gap-6'>
@@ -58,27 +50,24 @@ export const MenuBar = ({
                 </MenuBarItem>
                 <MenuBarItem
                     onClick={async () => {
-                        await onSave(JSON.stringify(editor.getJSON()));
+                        await onSave(
+                            JSON.stringify(editor.getJSON()),
+                            'Url copied to your clipboard!'
+                        );
                         await navigator.clipboard.writeText(
                             window.location.href
                         );
-                        addAlert('Url copied to your clipboard!', 'success');
+                        if (navigator.share) {
+                            navigator.share({
+                                url: window.location.href,
+                                title: 'SafeNote',
+                            });
+                        }
                     }}
                     isActive>
                     <div className='flex items-center gap-1'>
                         <span className='hidden md:inline-block'>Share</span>
                         <Share2 size={20} />
-                    </div>
-                </MenuBarItem>
-                <MenuBarItem
-                    onClick={async () => {
-                        addAlert('Note deleted!', 'success');
-                    }}
-                    isActive
-                    isDanger>
-                    <div className='flex items-center gap-1'>
-                        <span className='hidden md:inline-block'>Delete</span>
-                        <Trash size={20} />
                     </div>
                 </MenuBarItem>
             </div>
@@ -221,6 +210,7 @@ export const MenuBar = ({
                 </MenuBarItem>
             </div>
         </div>
+
         <div className='hidden flex-wrap items-center justify-center gap-4 md:flex md:justify-start md:gap-6'>
             <div className='flex items-center gap-2'>
                 <MenuBarItem
@@ -238,11 +228,19 @@ export const MenuBar = ({
                 </MenuBarItem>
                 <MenuBarItem
                     onClick={async () => {
-                        await onSave(JSON.stringify(editor.getJSON()));
+                        await onSave(
+                            JSON.stringify(editor.getJSON()),
+                            'Url copied to your clipboard!'
+                        );
                         await navigator.clipboard.writeText(
                             window.location.href
                         );
-                        addAlert('Url copied to your clipboard!', 'success');
+                        if (navigator.share) {
+                            navigator.share({
+                                url: window.location.href,
+                                title: 'SafeNote',
+                            });
+                        }
                     }}
                     isActive>
                     <div className='flex items-center gap-1'>
