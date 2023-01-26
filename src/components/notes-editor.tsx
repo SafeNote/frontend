@@ -109,7 +109,7 @@ export const NotesEditor = ({
 
     useEffect(() => {
         const saveNoteCallback = (ev: KeyboardEvent) => {
-            if (ev.metaKey && ev.key === 's') {
+            if ((ev.metaKey || ev.ctrlKey) && ev.key === 's') {
                 ev.preventDefault();
                 if (editor !== null && !saving) {
                     onSave(JSON.stringify(editor.getJSON()));
