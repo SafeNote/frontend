@@ -107,6 +107,25 @@ export const NotesEditor = ({
         editor?.commands.setContent(content);
     }, [editor, content]);
 
+    useEffect(() => {
+        const saveNoteCallback = (ev: KeyboardEvent) => {
+            if (ev.metaKey && ev.key === 's') {
+                ev.preventDefault();
+                if (editor !== null && !saving) {
+                    onSave(JSON.stringify(editor.getJSON()));
+                }
+            }
+        };
+
+        if (!saving && editor !== null) {
+            document.addEventListener('keydown', saveNoteCallback);
+        }
+
+        return () => {
+            document.removeEventListener('keydown', saveNoteCallback);
+        };
+    }, [editor, onSave, saving]);
+
     return (
         <div className='h-full space-y-4'>
             {editor ? (
