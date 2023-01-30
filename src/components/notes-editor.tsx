@@ -36,6 +36,7 @@ export const NotesEditor = ({
     noteData,
     saving,
     onSave,
+    onDelete,
 }: {
     noteData: JSONContent | null;
     saving: boolean;
@@ -44,6 +45,7 @@ export const NotesEditor = ({
         title: string,
         successMessage?: string | undefined
     ) => Promise<void>;
+    onDelete: () => Promise<void>;
 }) => {
     const extensions: Extensions = useMemo(
         () => [
@@ -117,7 +119,7 @@ export const NotesEditor = ({
     }, [noteData]);
 
     const onSaveCallback = useCallback(
-        async (isShare?: boolean) => {
+        async (isShare: boolean = false) => {
             if (editor === null || saving) {
                 return;
             }
@@ -135,13 +137,11 @@ export const NotesEditor = ({
 
             if (isShare) {
                 await navigator.clipboard.writeText(window.location.href);
-                if (navigator.share) {
-                    navigator.share({
-                        url: window.location.href,
-                        title: 'SafeNote',
-                        text: title,
-                    });
-                }
+                navigator.share?.({
+                    url: window.location.href,
+                    title: 'SafeNote',
+                    text: title,
+                });
             }
         },
         [addAlert, editor, onSave, saving, title]
@@ -172,6 +172,7 @@ export const NotesEditor = ({
                         <MenuBar
                             saving={saving}
                             onSave={onSaveCallback}
+                            onDelete={onDelete}
                             editor={editor}
                         />
                     </div>

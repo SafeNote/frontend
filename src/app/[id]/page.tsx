@@ -7,7 +7,7 @@ import { useAlertStore } from '@/components/alert';
 import { NotesEditor } from '@/components/notes-editor';
 import { useLinkStore } from '@/hooks/use-link-store';
 import { CryptoService } from '@/services/crypto.worker';
-import { createOrGetNote, saveNote } from '@/services/notes';
+import { createOrGetNote, deleteNote, saveNote } from '@/services/notes';
 import { JSONContent } from '@tiptap/core';
 import { wrap } from 'comlink';
 import { Loader2 } from 'lucide-react';
@@ -19,6 +19,7 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
 
     const [loading, setLoading] = useState(true);
     const addOrUpdateLink = useLinkStore(state => state.addOrUpdateLink);
+    const removeLink = useLinkStore(state => state.removeLink);
     const addAlert = useAlertStore(state => state.addAlert);
 
     const [noteData, setNoteData] = useState<JSONContent | null>(null);
@@ -169,12 +170,59 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
         [addAlert, addOrUpdateLink, id, push]
     );
 
+    const onDelete = useCallback(async () => {
+        try {
+            const key = window.location.hash.slice(1);
+            if (!key) {
+                push('/');
+                return;
+            }
+
+            setSaving(true);
+            const worker = new Worker(
+                new URL('@/services/crypto.worker', import.meta.url),
+                {
+                    type: 'module',
+                    name: 'safenote-crypto-worker',
+                }
+            );
+
+            const crypto = wrap<typeof CryptoService>(worker);
+            const hash = await crypto.getHash(key);
+            const result = await deleteNote(id, hash);
+
+            if (result.success) {
+                removeLink(id);
+                addAlert('Note deleted!', 'success');
+                return;
+            }
+
+            // eslint-disable-next-line no-console
+            console.error(result.errors);
+            addAlert('Something went wrong while deleting the note!', 'error');
+        } catch (error) {
+            addAlert(
+                `Error deleting note: ${
+                    error instanceof Error ? error.message : (error as string)
+                }`,
+                'error'
+            );
+        } finally {
+            setSaving(false);
+        }
+    }, [addAlert, id, push, removeLink]);
+
     return loading ? (
         <div className='flex h-full items-center justify-center'>
             <Loader2 className='animate-spin text-brand' />
         </div>
     ) : (
-        <NotesEditor saving={saving} onSave={onSave} noteData={noteData} />
+        <NotesEditor
+            saving={saving}
+            onSave={onSave}
+            onDelete={onDelete}
+            noteData={noteData}
+        />
     );
 };
 

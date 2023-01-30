@@ -18,6 +18,7 @@ import {
     Save,
     Share2,
     Strikethrough,
+    Trash2,
     Underline as UnderlineIcon,
     Undo,
     X,
@@ -27,14 +28,16 @@ export const MenuBar = ({
     editor,
     saving,
     onSave,
+    onDelete,
 }: {
     editor: Editor;
     saving: boolean;
     onSave: (isShare?: boolean) => Promise<void>;
+    onDelete: () => Promise<void>;
 }) => (
     <div className='flex flex-wrap items-center justify-center gap-4 md:justify-start md:gap-6'>
         <div className='hidden items-center gap-2 md:flex'>
-            <MenuBarItem onClick={onSave} disabled={saving} isActive={!saving}>
+            <MenuBarItem onClick={onSave} disabled={saving} isActive>
                 <div className='flex items-center gap-1'>
                     <span className='hidden md:inline-block'>Save</span>
                     {saving ? (
@@ -44,16 +47,25 @@ export const MenuBar = ({
                     )}
                 </div>
             </MenuBarItem>
-            <MenuBarItem onClick={() => onSave(true)} isActive>
+            <MenuBarItem
+                onClick={() => onSave(true)}
+                disabled={saving}
+                isActive>
                 <div className='flex items-center gap-1'>
                     <span className='hidden md:inline-block'>Share</span>
                     <Share2 size={20} />
+                </div>
+            </MenuBarItem>
+            <MenuBarItem onClick={onDelete} disabled={saving} isActive isDanger>
+                <div className='flex items-center gap-1'>
+                    <span className='hidden md:inline-block'>Delete</span>
+                    <Trash2 size={20} />
                 </div>
             </MenuBarItem>
         </div>
 
         <div className='flex items-center gap-2 md:hidden'>
-            <MenuBarItem onClick={onSave} disabled={saving} isActive={!saving}>
+            <MenuBarItem onClick={onSave} disabled={saving} isActive>
                 <div className='flex items-center gap-1'>
                     <span className='hidden md:inline-block'>Save</span>
                     {saving ? (
@@ -63,10 +75,19 @@ export const MenuBar = ({
                     )}
                 </div>
             </MenuBarItem>
-            <MenuBarItem onClick={() => onSave(true)} isActive>
+            <MenuBarItem
+                onClick={() => onSave(true)}
+                disabled={saving}
+                isActive>
                 <div className='flex items-center gap-1'>
                     <span className='hidden md:inline-block'>Share</span>
                     <Share2 size={20} />
+                </div>
+            </MenuBarItem>
+            <MenuBarItem onClick={onDelete} disabled={saving} isActive isDanger>
+                <div className='flex items-center gap-1'>
+                    <span className='hidden md:inline-block'>Share</span>
+                    <Trash2 size={20} />
                 </div>
             </MenuBarItem>
         </div>
