@@ -141,7 +141,7 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
                 });
 
                 if (result.success) {
-                    addOrUpdateLink(id, hash, title);
+                    addOrUpdateLink(id, key, title);
                     addAlert(successMessage ?? 'Note saved!', 'success');
                     return;
                 }

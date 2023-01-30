@@ -98,13 +98,13 @@ const Page = () => {
                 {links
                     .sort(
                         (a, b) =>
-                            new Date(a.modifiedAt).getTime() -
-                            new Date(b.modifiedAt).getTime()
+                            new Date(b.modifiedAt).getTime() -
+                            new Date(a.modifiedAt).getTime()
                     )
                     .map(link => (
                         <li key={link.id} className='flex w-full'>
                             <Link
-                                href={link.key}
+                                href={`/${link.id}#${link.key}`}
                                 className='flex h-full w-full flex-col justify-center gap-2 rounded-md bg-white px-4 py-2 text-sm shadow transition-all hover:shadow-lg'>
                                 <div className='flex gap-1'>
                                     <span className='font-bold'>Title:</span>
