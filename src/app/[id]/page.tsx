@@ -194,6 +194,7 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
             if (result.success) {
                 removeLink(id);
                 addAlert('Note deleted!', 'success');
+                push('/');
                 return;
             }
 
