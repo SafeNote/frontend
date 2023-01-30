@@ -14,58 +14,43 @@ export type LinkStoreState = {
 };
 
 export type LinkStoreActions = {
-    addLink: (link: Link) => void;
+    addOrUpdateLink: (id: string, key: string, title: string) => void;
     removeLink: (id: string) => void;
 };
 
 export const useLinkStore = create<LinkStoreState & LinkStoreActions>()(
     persist(
         (set, get) => ({
-            links: [
-                {
-                    id: '1',
-                    key: 'KEY',
-                    title: 'TITLE asd asd asd asd asd asdas dasd asd asd sadas asd das dasd adasd asd das dasd dasda',
-                    createdAt: new Date().toDateString(),
-                    modifiedAt: new Date().toDateString(),
-                },
-                {
-                    id: '2',
-                    key: 'KEY',
-                    title: 'TITLE',
-                    createdAt: new Date().toDateString(),
-                    modifiedAt: new Date().toDateString(),
-                },
-                {
-                    id: '3',
-                    key: 'KEY',
-                    title: 'TITLE',
-                    createdAt: new Date().toDateString(),
-                    modifiedAt: new Date().toDateString(),
-                },
-                {
-                    id: '4',
-                    key: 'KEY',
-                    title: 'TITLE',
-                    createdAt: new Date().toDateString(),
-                    modifiedAt: new Date().toDateString(),
-                },
-                {
-                    id: '5',
-                    key: 'KEY',
-                    title: 'TITLE',
-                    createdAt: new Date().toDateString(),
-                    modifiedAt: new Date().toDateString(),
-                },
-                {
-                    id: '6',
-                    key: 'KEY',
-                    title: 'TITLE',
-                    createdAt: new Date().toDateString(),
-                    modifiedAt: new Date().toDateString(),
-                },
-            ],
-            addLink: (link: Link) => set({ links: [...get().links, link] }),
+            links: [],
+            addOrUpdateLink: (id: string, key: string, title: string) => {
+                const now = new Date().toUTCString();
+
+                const { links } = get();
+                const oldLink = links.find(l => l.id === id);
+
+                if (oldLink) {
+                    set({
+                        links: [
+                            ...links.filter(l => l.id !== id),
+                            { ...oldLink, key, title, modifiedAt: now },
+                        ],
+                    });
+                    return;
+                }
+
+                set({
+                    links: [
+                        ...links,
+                        {
+                            id,
+                            key,
+                            createdAt: now,
+                            modifiedAt: now,
+                            title,
+                        },
+                    ],
+                });
+            },
             removeLink: (id: string) =>
                 set({ links: get().links.filter(link => link.id !== id) }),
         }),

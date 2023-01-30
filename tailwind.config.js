@@ -4,21 +4,16 @@ const {
     fontFamily: { sans },
 } = require('tailwindcss/defaultTheme');
 
-const brandColor = colors.indigo;
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     darkMode: 'class',
     content: [path.join(__dirname, 'src/**/*.(jsx|tsx)')],
     theme: {
         extend: {
-            fontFamily: {
-                sans: ['var(--font-inter)', sans],
-            },
             colors: {
                 brand: {
-                    ...brandColor,
-                    DEFAULT: brandColor[600],
+                    ...colors.indigo,
+                    DEFAULT: colors.indigo[600],
                 },
             },
         },

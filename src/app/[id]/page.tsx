@@ -2,10 +2,12 @@
 
 import { useAlertStore } from '@/components/alert';
 import { NotesEditor } from '@/components/notes-editor';
+import { useLinkStore } from '@/hooks/use-link-store';
 import { CryptoService } from '@/services/crypto.worker';
 import { createOrGetNote, saveNote } from '@/services/notes';
 import '@/styles/highlightjs.css';
 import '@/styles/prosemirror.css';
+import { JSONContent } from '@tiptap/core';
 import { wrap } from 'comlink';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -15,9 +17,10 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
     const { push } = useRouter();
 
     const [loading, setLoading] = useState(true);
+    const addOrUpdateLink = useLinkStore(state => state.addOrUpdateLink);
     const addAlert = useAlertStore(state => state.addAlert);
 
-    const [noteData, setNoteData] = useState<string | null>(null);
+    const [noteData, setNoteData] = useState<JSONContent | null>(null);
 
     useEffect(() => {
         const key = window.location.hash.slice(1);
@@ -68,7 +71,12 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
                         result.data.dataBundle.encryptedData
                     );
 
-                    setNoteData(data);
+                    if (!data) {
+                        setNoteData(null);
+                        return;
+                    }
+
+                    setNoteData(JSON.parse(data));
                     return;
                 }
 
@@ -102,14 +110,14 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
     const [saving, setSaving] = useState(false);
 
     const onSave = useCallback(
-        async (data: string, successMessage?: string) => {
-            const key = window.location.hash.slice(1);
-            if (!key) {
-                push('/');
-                return;
-            }
-
+        async (data: JSONContent, title: string, successMessage?: string) => {
             try {
+                const key = window.location.hash.slice(1);
+                if (!key) {
+                    push('/');
+                    return;
+                }
+
                 setSaving(true);
                 const worker = new Worker(
                     new URL('@/services/crypto.worker', import.meta.url),
@@ -124,7 +132,7 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
                 const hash = await crypto.getHash(key);
                 const { encryptedData, nonce } = await crypto.encrypt(
                     key,
-                    data ?? ''
+                    data ? JSON.stringify({ ...data, title }) : ''
                 );
                 const result = await saveNote(id, {
                     keyHash: hash,
@@ -133,6 +141,7 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
                 });
 
                 if (result.success) {
+                    addOrUpdateLink(id, hash, title);
                     addAlert(successMessage ?? 'Note saved!', 'success');
                     return;
                 }
@@ -156,7 +165,7 @@ const NotePage = ({ params: { id } }: { params: { id: string } }) => {
                 setSaving(false);
             }
         },
-        [addAlert, id, push]
+        [addAlert, addOrUpdateLink, id, push]
     );
 
     return loading ? (

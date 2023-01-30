@@ -22,23 +22,26 @@ import {
     EditorContent,
     Extensions,
     generateHTML,
+    JSONContent,
     useEditor,
 } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import clsx from 'clsx';
 import { lowlight } from 'lowlight';
 import { Loader2 } from 'lucide-react';
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useAlertStore } from './alert';
 
 export const NotesEditor = ({
     noteData,
     saving,
     onSave,
 }: {
-    noteData: string | null;
+    noteData: JSONContent | null;
     saving: boolean;
     onSave: (
-        data: string,
+        data: JSONContent,
+        title: string,
         successMessage?: string | undefined
     ) => Promise<void>;
 }) => {
@@ -84,7 +87,7 @@ export const NotesEditor = ({
     );
 
     const content = useMemo(
-        () => (noteData ? generateHTML(JSON.parse(noteData), extensions) : ''),
+        () => (noteData ? generateHTML(noteData, extensions) : ''),
         [extensions, noteData]
     );
 
@@ -93,7 +96,7 @@ export const NotesEditor = ({
         editorProps: {
             attributes: {
                 class: clsx(
-                    'prose max-w-full p-4',
+                    'bg-transparent prose max-w-full p-4',
                     'h-[65vh] max-h-[65vh] overflow-y-auto rounded-md border-2 border-brand',
                     'focus:outline-none focus-within:ring-2 focus-within:ring-brand/75 focus-within:ring-offset-2',
                     '[&>*]:m-0'
@@ -107,13 +110,45 @@ export const NotesEditor = ({
         editor?.commands.setContent(content);
     }, [editor, content]);
 
+    const addAlert = useAlertStore(state => state.addAlert);
+    const [title, setTitle] = useState<string>(noteData?.title ?? '');
+
+    const onSaveCallback = useCallback(
+        async (isShare?: boolean) => {
+            if (editor === null || saving) {
+                return;
+            }
+
+            if (!title) {
+                addAlert('Title is required.', 'info');
+                return;
+            }
+
+            const message = isShare
+                ? 'Url copied to your clipboard!'
+                : undefined;
+
+            await onSave(editor.getJSON(), title, message);
+
+            if (isShare) {
+                await navigator.clipboard.writeText(window.location.href);
+                if (navigator.share) {
+                    navigator.share({
+                        url: window.location.href,
+                        title: 'SafeNote',
+                        text: title,
+                    });
+                }
+            }
+        },
+        [addAlert, editor, onSave, saving, title]
+    );
+
     useEffect(() => {
-        const saveNoteCallback = (ev: KeyboardEvent) => {
+        const saveNoteCallback = async (ev: KeyboardEvent) => {
             if ((ev.metaKey || ev.ctrlKey) && ev.key === 's') {
                 ev.preventDefault();
-                if (editor !== null && !saving) {
-                    onSave(JSON.stringify(editor.getJSON()));
-                }
+                await onSaveCallback();
             }
         };
 
@@ -124,7 +159,7 @@ export const NotesEditor = ({
         return () => {
             document.removeEventListener('keydown', saveNoteCallback);
         };
-    }, [editor, onSave, saving]);
+    }, [editor, onSaveCallback, saving]);
 
     return (
         <div className='h-full space-y-4'>
@@ -133,8 +168,19 @@ export const NotesEditor = ({
                     <div className='shrink-0 space-y-2'>
                         <MenuBar
                             saving={saving}
-                            onSave={onSave}
+                            onSave={onSaveCallback}
                             editor={editor}
+                        />
+                    </div>
+                    <div className='flex items-center gap-2'>
+                        <input
+                            id='title'
+                            name='title'
+                            type='text'
+                            placeholder='Enter a title...'
+                            value={title}
+                            onChange={e => setTitle(e.target.value)}
+                            className='h-8 border-2 border-brand bg-transparent text-gray-700 placeholder:text-gray-400 focus-within:ring-2 focus-within:ring-offset-2 md:max-w-md'
                         />
                     </div>
                     <EditorContent
