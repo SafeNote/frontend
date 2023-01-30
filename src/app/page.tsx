@@ -3,6 +3,7 @@
 import { useAlertStore } from '@/components/alert';
 import { useLinkStore } from '@/hooks/use-link-store';
 import { CryptoService } from '@/services/crypto.worker';
+import clsx from 'clsx';
 import { wrap } from 'comlink';
 import { formatDistanceToNow } from 'date-fns';
 import { Loader2 } from 'lucide-react';
@@ -56,7 +57,7 @@ const Page = () => {
     if (links.length <= 0) {
         return (
             <div className='flex h-full items-center justify-center'>
-                <div className='prose prose-base text-sm'>
+                <div className='prose prose-base text-sm leading-relaxed'>
                     <blockquote className='space-y-2 md:space-y-4'>
                         <div className='font-bold'>
                             Hey ChatGPT, introduce SafeNote to the world!
@@ -93,7 +94,13 @@ const Page = () => {
     }
 
     return (
-        <div className='flex h-full items-center justify-center'>
+        <div className='flex h-full flex-col items-start gap-4'>
+            <button
+                type='button'
+                className='text-brand underline'
+                onClick={newNote}>
+                Create A New Note
+            </button>
             <ul className='grid w-full gap-4 lg:grid-cols-3'>
                 {links
                     .sort(
@@ -103,9 +110,17 @@ const Page = () => {
                     )
                     .map(link => (
                         <li key={link.id} className='flex w-full'>
-                            <Link
-                                href={`/${link.id}#${link.key}`}
-                                className='flex h-full w-full flex-col justify-center gap-2 rounded-md bg-white px-4 py-2 text-sm shadow transition-all hover:shadow-lg'>
+                            <button
+                                type='button'
+                                onClick={() =>
+                                    push(`/${link.id}#${link.key}`, {
+                                        forceOptimisticNavigation: true,
+                                    })
+                                }
+                                className={clsx(
+                                    'flex h-full w-full flex-col justify-center gap-2 rounded-md bg-white px-4 py-2 text-sm shadow transition-all hover:shadow-lg',
+                                    'focus:outline-none focus-visible:ring focus-visible:ring-brand/75 focus-visible:ring-offset-2'
+                                )}>
                                 <div className='flex gap-1'>
                                     <span className='font-bold'>Title:</span>
                                     <span>{link.title}</span>
@@ -138,7 +153,7 @@ const Page = () => {
                                         )}
                                     </span>
                                 </div>
-                            </Link>
+                            </button>
                         </li>
                     ))}
             </ul>

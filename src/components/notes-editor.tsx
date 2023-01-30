@@ -112,6 +112,9 @@ export const NotesEditor = ({
 
     const addAlert = useAlertStore(state => state.addAlert);
     const [title, setTitle] = useState<string>(noteData?.title ?? '');
+    useEffect(() => {
+        setTitle(noteData?.title ?? '');
+    }, [noteData]);
 
     const onSaveCallback = useCallback(
         async (isShare?: boolean) => {

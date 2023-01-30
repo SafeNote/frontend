@@ -1,12 +1,13 @@
 'use client';
 
+import '@/styles/highlightjs.css';
+import '@/styles/prosemirror.css';
+
 import { useAlertStore } from '@/components/alert';
 import { NotesEditor } from '@/components/notes-editor';
 import { useLinkStore } from '@/hooks/use-link-store';
 import { CryptoService } from '@/services/crypto.worker';
 import { createOrGetNote, saveNote } from '@/services/notes';
-import '@/styles/highlightjs.css';
-import '@/styles/prosemirror.css';
 import { JSONContent } from '@tiptap/core';
 import { wrap } from 'comlink';
 import { Loader2 } from 'lucide-react';
