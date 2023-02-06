@@ -1,9 +1,10 @@
 import { Providers } from '@/components/providers';
-import '@/styles/tw.css';
 import clsx from 'clsx';
 import { Github, Twitter } from 'lucide-react';
 import Link from 'next/link';
 import { FC, PropsWithChildren } from 'react';
+
+import '@/styles/tw.css';
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => (
     <html lang='en' dir='ltr'>
@@ -25,22 +26,33 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
                             Opensource, end to end encrypted notes.
                         </div>
                     </div>
-                    <div className='flex items-center gap-2'>
+                    <div className='flex items-center gap-3'>
+                        <Link
+                            href='/blog'
+                            className='text-xl duration-200 ease-out hover:text-brand hover:underline'>
+                            Blog
+                        </Link>
                         <Link
                             href='https://github.com/SafeNote'
                             target='_blank'
                             rel='noreferrer'>
-                            <Github />
+                            <Github
+                                size={18}
+                                className='duration-200 ease-out hover:text-brand'
+                            />
                         </Link>
                         <Link
                             href='https://twitter.com/SafeNoteIO'
                             target='_blank'
                             rel='noreferrer'>
-                            <Twitter />
+                            <Twitter
+                                size={18}
+                                className='duration-200 ease-out hover:text-brand'
+                            />
                         </Link>
                     </div>
                 </header>
-                <main className='flex-auto'>{children}</main>
+                <main className='relative flex-auto'>{children}</main>
                 <footer className='flex h-8 shrink-0 items-center justify-center gap-1 py-2 text-center text-sm'>
                     <span>&copy;</span>
                     <span>

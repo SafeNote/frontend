@@ -10,6 +10,7 @@ module.exports = {
             'dummyimage.com',
             'images.unsplash.com',
             'safenote.io',
+            'cdn.sanity.io',
             process.env.NEXT_PUBLIC_DOMAIN ?? 'safenote.io',
         ],
         formats: ['image/avif', 'image/webp'],
