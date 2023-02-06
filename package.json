@@ -126,7 +126,7 @@
     "engines": {
         "node": ">=18.0.0"
     },
-    "packageManager": "yarn@3.3.0",
+    "packageManager": "pnpm@7.26.3",
     "lint-staged": {
         "src/**/*.{.js.,ts,.jsx,.tsx}": [
             "eslint --fix"

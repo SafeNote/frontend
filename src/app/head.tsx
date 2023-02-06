@@ -12,13 +12,16 @@ const Head = () => (
         <meta name='robots' content='index, follow' />
 
         <meta name='keywords' content='SafeNote' />
-        <meta name='description' content='SafeNote' />
+        <meta
+            name='description'
+            content='SafeNote is a free and opensource online notepad that offers end-to-end encryption to ensure the security and privacy of your notes.'
+        />
 
         <meta name='theme-color' content='#4f46e5' />
 
         <meta
             property='og:description'
-            content='SafeNote, opensource, end to end encrypted notes.'
+            content='SafeNote is a free and opensource online notepad that offers end-to-end encryption to ensure the security and privacy of your notes.'
         />
         <meta property='og:type' content='Website' />
         <meta property='og:title' content='SafeNote' />
@@ -26,12 +29,12 @@ const Head = () => (
             property='og:image'
             content={`https://${
                 process.env.NEXT_PUBLIC_DOMAIN ?? 'safenote.io'
-            }/og-image.png`}
+            }/android-chrome-512x512.png`}
         />
 
         <meta
             name='twitter:description'
-            content='SafeNote, opensource, end to end encrypted notes.'
+            content='SafeNote is a free and opensource online notepad that offers end-to-end encryption to ensure the security and privacy of your notes.'
         />
         <meta name='twitter:title' content='SafeNote' />
         <meta name='twitter:card' content='summary' />
