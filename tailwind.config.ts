@@ -1,13 +1,10 @@
-const path = require('path');
-const colors = require('tailwindcss/colors');
-const {
-    fontFamily: { sans },
-} = require('tailwindcss/defaultTheme');
+/* eslint-disable global-require */
+import type { Config } from 'tailwindcss';
+import colors from 'tailwindcss/colors';
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
     darkMode: 'class',
-    content: [path.join(__dirname, 'src/**/*.(jsx|tsx)')],
+    content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
     theme: {
         extend: {
             colors: {
@@ -19,11 +16,9 @@ module.exports = {
         },
     },
     plugins: [
-        require('@tailwindcss/container-queries'),
         require('@tailwindcss/typography'),
         require('@tailwindcss/forms'),
-        require('@tailwindcss/line-clamp'),
         require('@headlessui/tailwindcss'),
         require('tailwindcss-debug-screens'),
     ],
-};
+} satisfies Config;
