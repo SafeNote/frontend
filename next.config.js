@@ -1,5 +1,3 @@
-const path = require('path');
-
 /** @type {import('next').NextConfig} */
 module.exports = {
     // output: 'standalone', // Uncomment this for node based deployments
@@ -10,7 +8,6 @@ module.exports = {
             'dummyimage.com',
             'images.unsplash.com',
             'safenote.io',
-            'cdn.sanity.io',
             process.env.NEXT_PUBLIC_DOMAIN ?? 'safenote.io',
         ],
         formats: ['image/avif', 'image/webp'],
